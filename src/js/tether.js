@@ -420,6 +420,8 @@ class TetherClass {
     // Cleanup page
     // If no tethers delete tether zero element on document
     if (tethers.length === 0) {
+      let tetherZeroElement = document._tetherZeroElement;
+      tetherZeroElement.parentNode.removeChild(tetherZeroElement);
       delete document._tetherZeroElement;
     }
   }

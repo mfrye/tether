@@ -1,4 +1,4 @@
-/*! tether 1.1.1 */
+/*! tether 1.2.0 */
 
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
@@ -840,6 +840,8 @@ var TetherClass = (function () {
       // Cleanup page
       // If no tethers delete tether zero element on document
       if (tethers.length === 0) {
+        var tetherZeroElement = document._tetherZeroElement;
+        tetherZeroElement.parentNode.removeChild(tetherZeroElement);
         delete document._tetherZeroElement;
       }
     }
@@ -1483,14 +1485,24 @@ TetherBase.modules.push({
       }
 
       if (changeAttachX === 'element' || changeAttachX === 'both') {
-        if (left < bounds[0] && eAttachment.left === 'right') {
-          left += width;
-          eAttachment.left = 'left';
+        if (left < bounds[0]) {
+          if (eAttachment.left === 'right') {
+            left += width;
+            eAttachment.left = 'left';
+          } else if (eAttachment.left === 'center') {
+            left += width / 2;
+            eAttachment.left = 'left';
+          }
         }
 
-        if (left + width > bounds[2] && eAttachment.left === 'left') {
-          left -= width;
-          eAttachment.left = 'right';
+        if (left + width > bounds[2]) {
+          if (eAttachment.left === 'left') {
+            left -= width;
+            eAttachment.left = 'right';
+          } else if (eAttachment.left === 'center') {
+            left -= width / 2;
+            eAttachment.left = 'right';
+          }
         }
       }
 
