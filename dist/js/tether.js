@@ -841,7 +841,11 @@ var TetherClass = (function () {
       // If no tethers delete tether zero element on document
       if (tethers.length === 0) {
         var tetherZeroElement = document._tetherZeroElement;
-        tetherZeroElement.parentNode.removeChild(tetherZeroElement);
+
+        if (tetherZeroElement) {
+          tetherZeroElement.parentNode.removeChild(tetherZeroElement);
+        }
+
         delete document._tetherZeroElement;
       }
     }
